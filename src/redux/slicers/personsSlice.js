@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import faker from 'faker'
-import { dispatch } from '../store';
+
 
 const initialState = {
     persons: []
@@ -14,7 +13,6 @@ export const personSlice = createSlice({
         download: (state, action) => {
             state.persons = action.payload;
         },
-
     }
 });
 

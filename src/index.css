@@ -67,3 +67,22 @@ html,
 .my-facebook-button-class > svg {
     padding-right: 18px;
 }
+
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+    margin: 0 !important;
+    max-width: fit-content !important;
+    max-height: none !important;
+    overflow: none !important;
+    background-color: white !important;
+    position: absolute !important;
+    left: 0 !important;
+    border-radius: 0 !important;
+}
+
+#search-input-box-home-user {
+    border: 10px solid;
+    border-image-slice: 1;
+    border-width: 5px;
+    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+    /* linear-gradient(90deg, rgba(128, 7, 86, 1) 0 %, rgba(114, 9, 121, 1) 36 %, rgba(245, 91, 241, 1) 100 %, rgba(0, 212, 255, 1) 100 %) */
+}

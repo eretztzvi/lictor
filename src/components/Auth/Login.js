@@ -23,7 +23,6 @@ function Login() {
     }
 
     const responseGoogle = (response) => {
-        console.log(response.profileObj)
 
         const data = {
             email: response.profileObj.email,
@@ -36,7 +35,6 @@ function Login() {
 
         Axios.post(Globals.login, data)
             .then(res => {
-                console.log(res.data)
                 //Redux
                 dispatch(login(res.data))
                 saveToLoaclStorage(res.data)
@@ -48,7 +46,6 @@ function Login() {
     }
 
     const responseFacebook = (response) => {
-        console.log(response)
 
         const data = {
             email: response.email,
@@ -61,7 +58,6 @@ function Login() {
 
         Axios.post(Globals.login, data)
             .then(res => {
-                console.log(res.data)
                 //Redux
                 dispatch(login(res.data))
                 saveToLoaclStorage(res.data)

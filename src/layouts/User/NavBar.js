@@ -18,7 +18,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../redux/slicers/authSlicer';
 
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['כל הפעולות שלי', 'התנתק'];
 
 const NavBar = () => {
 
@@ -39,10 +39,6 @@ const NavBar = () => {
         {
             title: "דווח",
             link: PATHS.auth.login
-        },
-        {
-            title: "התנתק",
-            link: "#"
         },
     ]
 
@@ -144,14 +140,21 @@ const NavBar = () => {
                             {PAGES.map((page, i) => (
                                 <Button
                                     key={i}
-                                    onClick={page.title === "התנתק" ? () => logoutAction() : () => to(page.link)}
-                                    sx={{ my: 0, fontSize: 15, color: 'white', width: 120, height: 40 }}
-                                    variant={page.title === "התחברות" && "contained"}
+                                    onClick={() => to(page.link)}
+                                    sx={{ mr: 1, fontSize: 15, color: 'white', width: 80, height: 40 }}
+                                    variant={page.title === "דווח" && 'contained'}
+                                    // color={page.title === "דווח" && 'warning'}
+                                    color='warning'
+
                                 >
                                     {page.title}
                                 </Button>
                             ))}
                         </Box>
+
+                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, ml: 3 }}>
+                            <Avatar alt="Remy Sharp" src={user && user.image} />
+                        </IconButton>
 
                         <Box sx={{ flexGrow: 0, display: { md: 'none' } }}>
                             <Tooltip title="Open settings">
@@ -176,7 +179,7 @@ const NavBar = () => {
                                 onClose={handleCloseUserMenu}
                             >
                                 {settings.map((setting, i) => (
-                                    <MenuItem key={i} onClick={handleCloseNavMenu}>
+                                    <MenuItem key={i} onClick={setting === "התנתק" ? logoutAction : handleCloseNavMenu}>
                                         <Typography textAlign="center">{setting}</Typography>
                                     </MenuItem>
                                 ))}
