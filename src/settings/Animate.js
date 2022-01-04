@@ -1,4 +1,4 @@
-import { bounce, flipInX, rubberBand, swing, bounceInDown, bounceInLeft, bounceInRight, hinge, fadeInUp, fadeInRightBig, tada, shake } from 'react-animations';
+import { bounce, flipInX, rubberBand, swing, bounceInDown, bounceInLeft, bounceInRight, hinge, fadeInUp, fadeInRightBig, tada, shake , slideOutUp, bounceOutLeft} from 'react-animations';
 import Radium, { StyleRoot } from 'radium';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 Animate.propTypes = {
     children: PropTypes.node.isRequired,
-    anima: PropTypes.oneOf(['bounce', 'flipInX', 'rubberBand', 'swing', 'bounceInDown', 'bounceInLeft', 'bounceInRight', 'hinge', 'fadeInUp', 'fadeInRightBig', 'tada', 'shake'])
+    anima: PropTypes.oneOf(['bounce', 'flipInX', 'rubberBand', 'swing', 'bounceInDown', 'bounceInLeft', 'bounceInRight', 'hinge', 'fadeInUp', 'fadeInRightBig', 'tada', 'shake', 'slideOutUp', 'bounceOutLeft'])
 }
 
 export default function Animate({ children, anima }) {
@@ -39,6 +39,9 @@ export default function Animate({ children, anima }) {
         case 'bounceInRight':
             styles.animate.animationName = Radium.keyframes(bounceInRight, 'bounceInRight')
             break;
+        case 'bounceOutLeft':
+            styles.animate.animationName = Radium.keyframes(bounceOutLeft, 'bounceOutLeft')
+            break;
         case 'bounceInLeft':
             styles.animate.animationName = Radium.keyframes(bounceInLeft, 'bounceInLeft')
             break;
@@ -56,6 +59,9 @@ export default function Animate({ children, anima }) {
             break;
         case 'shake':
             styles.animate.animationName = Radium.keyframes(shake, 'shake')
+            break;
+        case 'slideOutUp':
+            styles.animate.animationName = Radium.keyframes(slideOutUp, 'slideOutUp')
             break;
     }
 

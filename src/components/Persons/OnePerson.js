@@ -2,17 +2,39 @@ import { Grid, TextField, Typography, Box, Button, Paper } from '@mui/material';
 import { useState } from 'react';
 import Animate from '../../settings/Animate';
 import { centerAll } from '../../settings/Styles';
+import { useSelector, useDispatch } from 'react-redux'
+import { download, addLike } from '../../redux/slicers/likesSlicer'
+import { addLikeToPerson } from '../../redux/slicers/personsSlice'
 
 function OnePerson({ fake, isHover, setIsHover, handlePersonModal }) {
 
+    const dispatch = useDispatch()
+
+    const { user } = useSelector(state => state.auth)
+    const { likes } = useSelector(state => state.likes)
+
     const [isPressed, setIsPressed] = useState('')
 
-    const handlePress = like => {
-        console.log(like)
-        setIsPressed(like)
+    const pressLike = like => {
+        // active effect
+        setIsPressed(like.name)
         setTimeout(() => {
             setIsPressed('')
         }, 1500)
+
+        const obj = {
+            user_id: user._id,
+            email: user.email,
+            like_name: like.name,
+            like_id: like.like_id,
+            // time_liked: new Date(),
+            person_id: fake._id,
+            is_liked: likes.find(l => l.like_name === like.name && l.email === user.email && fake._id === l.person_id) ? true : false
+        }
+
+        dispatch(addLike(obj))
+        dispatch(addLikeToPerson(obj))
+
     }
 
     return (
@@ -31,30 +53,19 @@ function OnePerson({ fake, isHover, setIsHover, handlePersonModal }) {
                     </Box>
 
                     <Box sx={{ ...centerAll({ flexDirection: 'row', justifyContent: 'space-between' }) }}>
-                        <Box sx={{ ...centerAll({}) }}>
-                            <Button onClick={() => handlePress('angry')} >
-                                <Animate anima={isPressed === "angry" && 'rubberBand'}>
-                                    <Typography sx={{ fontSize: 40 }}>🤬</Typography>
-                                </Animate>
-                            </Button>
-                            <Typography color="white" variant='subtitle2'>352</Typography>
-                        </Box>
-                        <Box sx={{ ...centerAll({}) }}>
-                            <Button onClick={() => handlePress('clueless')}>
-                                <Animate anima={isPressed === "clueless" && 'shake'}>
-                                    <Typography sx={{ fontSize: 40 }}>😐</Typography>
-                                </Animate>
-                            </Button>
-                            <Typography color="white" variant='subtitle2'>32</Typography>
-                        </Box>
-                        <Box sx={{ ...centerAll({}) }}>
-                            <Button onClick={() => handlePress('love')}>
-                                <Animate anima={isPressed === "love" && 'tada'}>
-                                    <Typography sx={{ fontSize: 40 }}>😀</Typography>
-                                </Animate>
-                            </Button>
-                            <Typography color="white" variant='subtitle2'>1352</Typography>
-                        </Box>
+
+                        {fake.likes.map((like, i) =>
+                            <Box sx={{ ...centerAll({}) }} key={i}>
+                                <Button onClick={() => pressLike(like)} >
+                                    <Animate anima={isPressed === like.name && 'rubberBand'}>
+                                        <Typography sx={{ fontSize: likes.find(l => l.like_name === like.name && l.email === user.email && fake._id === l.person_id) ? 50 : 30 }}>{like.icon}</Typography>
+                                    </Animate>
+                                </Button>
+                                <Typography color="white" variant='subtitle2'>{like.count}</Typography>
+                                {/* <Typography color="white" variant='subtitle2'>{like.count + likes.filter(l => l.like_name === like.name && fake._id === l.person_id).length }</Typography> */}
+                            </Box>
+                        )}
+
                     </Box>
                 </Box>
             }

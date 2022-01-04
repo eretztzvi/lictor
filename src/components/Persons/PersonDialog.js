@@ -21,11 +21,11 @@ function PersonDialog({ open, handleClose, person }) {
                     <Typography variant='h6'>{person.job} 🔥 {person.company}</Typography>
                 </Box>
                 <Divider />
-                <Box sx={{ m: 3 }}>
+                <Box sx={{ m: 3, height: 450 }}>
                     <PersonEmailSenderForm person={person} />
                 </Box>
                 <Box sx={{ m: 3 }}>
-                    <Alert dir='rtl' lang='heb' color='info' sx={{ height: '20vh' }}>
+                    <Alert dir='rtl' lang='heb' color='info' sx={{ height: '10vh' }}>
                         <AlertTitle>&nbsp;&nbsp;חוקים לכתיבת מייל</AlertTitle>
                     </Alert>
                 </Box>

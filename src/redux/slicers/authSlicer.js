@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
+// import { dispatch } from '../store';
+
 const initialState = {
   user: null
 };

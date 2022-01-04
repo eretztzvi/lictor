@@ -38,7 +38,7 @@ const NavBar = () => {
         },
         {
             title: "דווח",
-            link: PATHS.auth.login
+            link: PATHS.user.report
         },
     ]
 
@@ -138,17 +138,27 @@ const NavBar = () => {
 
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: "flex-end" }}>
                             {PAGES.map((page, i) => (
-                                <Button
-                                    key={i}
-                                    onClick={() => to(page.link)}
-                                    sx={{ mr: 1, fontSize: 15, color: 'white', width: 80, height: 40 }}
-                                    variant={page.title === "דווח" && 'contained'}
-                                    // color={page.title === "דווח" && 'warning'}
-                                    color='warning'
+                                page.title === "דווח" ?
+                                    <Button
+                                        key={i}
+                                        onClick={() => to(page.link)}
+                                        sx={{ mr: 1, fontSize: 15, color: 'white', width: 80, height: 40 }}
+                                        variant='contained'
+                                        color='warning'
 
-                                >
-                                    {page.title}
-                                </Button>
+                                    >
+                                        {page.title}
+                                    </Button>
+                                    :
+                                    <Button
+                                        key={i}
+                                        onClick={() => to(page.link)}
+                                        sx={{ mr: 1, fontSize: 15, color: 'white', width: 80, height: 40 }}
+                                        color='warning'
+
+                                    >
+                                        {page.title}
+                                    </Button>
                             ))}
                         </Box>
 

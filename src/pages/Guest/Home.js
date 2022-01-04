@@ -7,15 +7,6 @@ import { COLORS } from '../../settings/Styles'
 
 function Home() {
 
-    const [isOut, setIsOut] = useState(false)
-
-    useEffect(() => {
-        return () => {
-            console.log('out')
-            setIsOut(true)
-        }
-    }, [])
-
     const centerAll = ({ display = 'flex', justifyContent = "center", alignItems = "center", flexDirection = "column" }) => {
         return {
             display,
@@ -25,7 +16,7 @@ function Home() {
         }
     }
     return (
-        <Animate anima={isOut ? 'bounceInRight' : 'bounceInLeft'}>
+        <Animate anima='bounceInLeft'>
             <Grid container sx={{ height: '100vh', ...centerAll({ flexDirection: "row" }) }}>
                 <Header />
                 <Numbers />

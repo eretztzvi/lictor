@@ -148,9 +148,9 @@ const NavBar = () => {
                             {PAGES.map((page, i) => (
                                 <Button
                                     key={i}
-                                    onClick={page.title === "התנתק" ? () => logoutAction() : () => to(page.link)}
+                                    onClick={() => to(page.link)}
                                     sx={{ my: 0, fontSize: 15, color: 'white', width: 120, height: 40 }}
-                                    variant={page.title === "התחברות" && "contained"}
+                                    variant="contained"
                                 >
                                     {page.title}
                                 </Button>

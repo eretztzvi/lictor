@@ -37,6 +37,7 @@ export default function Router() {
     }
 
     setIsAdim(isUser ? isUser.is_admin : null)
+
   }, user)
 
   let userRoutes;
