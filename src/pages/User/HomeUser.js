@@ -6,6 +6,7 @@ import { Grid, TextField, Typography, Box, Button, Paper } from '@mui/material';
 import { centerAll, SearchBoxStyle, SearchInputStyle, SearchButtonStyle } from '../../settings/Styles';
 import OnePerson from '../../components/Persons/OnePerson';
 import PersonDialog from '../../components/Persons/PersonDialog';
+import Animate from '../../settings/Animate';
 
 //------------------------------------------------------
 
@@ -52,7 +53,9 @@ function HomeUser() {
                 <Box sx={{ width: '100%' }}>
                     <Masonry columns={3} spacing={3} sx={{ m: 0 }} >
                         {persons && persons.slice(0, currDisplay).map((fake, index) => (
-                            <OnePerson fake={fake} isHover={isHover} key={index} setIsHover={setIsHover} handlePersonModal={handlePersonModal} />
+                            <Animate anima="fadeInUp">
+                                <OnePerson fake={fake} isHover={isHover} key={index} setIsHover={setIsHover} handlePersonModal={handlePersonModal} />
+                            </Animate>
                         ))}
                     </Masonry>
                 </Box>

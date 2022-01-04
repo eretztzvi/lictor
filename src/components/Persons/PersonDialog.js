@@ -17,8 +17,8 @@ function PersonDialog({ open, handleClose, person }) {
         >
             {person && <Box sx={{ height: '100vh', width: '800px' }}>
                 <Box sx={{ m: 3 }}>
-                    <Typography noWrap variant='h1'>{person.first_name} {person.last_name}</Typography>
-                    <Typography variant='h6'>{person.job} 🔥 {person.company}</Typography>
+                    <Typography sx={{direction: 'rtl'}} noWrap variant='h1'>{person.first_name} {person.last_name}</Typography>
+                    <Typography sx={{direction: 'rtl'}} variant='h6'>{person.job} 🔥 {person.company}</Typography>
                 </Box>
                 <Divider />
                 <Box sx={{ m: 3, height: 450 }}>

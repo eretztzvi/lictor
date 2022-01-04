@@ -15,7 +15,7 @@ export default function Animate({ children, anima }) {
         animate: {
             width: '100%',
             height: '100%',
-            animation: 'x 1s',
+            animation: 'x 2s',
             // animationName: Radium.keyframes(bounce, `bounce`)
         }
     }

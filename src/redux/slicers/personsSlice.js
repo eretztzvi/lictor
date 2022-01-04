@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import faker from 'faker'
-
+import { fetchFakePersons } from '../../fakeData/fakePersons'
 import { dispatch } from '../store';
+import Axios from 'axios'
+import { Globals } from '../../Globals'
 
 const initialState = {
     persons: []
 };
-
 
 export const personSlice = createSlice({
     name: 'persons',
@@ -16,6 +16,7 @@ export const personSlice = createSlice({
             state.persons = action.payload;
         },
         addLikeToPerson: (state, action) => {
+
             const findPerson = state.persons.findIndex(p => p._id === action.payload.person_id)
             const findLike = state.persons[findPerson].likes.findIndex(l => l.name === action.payload.like_name)
 
@@ -26,25 +27,37 @@ export const personSlice = createSlice({
                 state.persons[findPerson].likes[findLike].count = state.persons[findPerson].likes[findLike].count + 1
 
         },
+        decreaseLikeFromPerson: (state, action) => {
+            const findPersonToDecrease = state.persons.findIndex(p => p._id === action.payload.person_id)
+            const findLikeToDecrease = state.persons[findPersonToDecrease].likes.findIndex(l => l.name === action.payload.like_name)
+
+            state.persons[findPersonToDecrease].likes[findLikeToDecrease].count--
+        }
     }
 });
 
 
 
-export const { download, addLikeToPerson } = personSlice.actions;
-
-
+export const { download, addLikeToPerson, decreaseLikeFromPerson } = personSlice.actions;
 
 export default personSlice.reducer;
-
 
 // ----------------------------------------------------------------------
 
 export function getPersons() {
     return async () => {
         try {
-            const data = fetchDataFake()
-            dispatch(personSlice.actions.download(data));
+            // const data = fetchFakePersons()
+
+            Axios.get(Globals.getAllPersonsForUser)
+                .then(res => {
+                    dispatch(personSlice.actions.download(res.data));
+                    console.log(res.data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+
         } catch (error) {
             console.log(error)
         }
@@ -53,43 +66,3 @@ export function getPersons() {
 
 // ----------------------------------------------------------------------
 
-const fetchDataFake = () => {
-
-    const data = []
-
-    for (let i = 0; i < 30; i++) {
-        const obj = {
-            _id: faker.datatype.uuid(),
-            first_name: faker.name.firstName(),
-            last_name: faker.name.lastName(),
-            image: faker.image.image(),
-            company: faker.company.companyName(),
-            job: faker.name.jobTitle(),
-            gender: faker.name.gender(),
-            likes: [
-                {
-                    like_id: 'sdfsdfrtyrty53dgdfg',
-                    name: "happy",
-                    count: 111,
-                    icon: '😀'
-                },
-                {
-                    like_id: 'sdfsdfrtyrty53dgdnv',
-                    name: "fine",
-                    count: 123,
-                    icon: '😐'
-                },
-                {
-                    like_id: 'sdfsdfrtyrty53dgdnb',
-                    name: "angry",
-                    count: 321,
-                    icon: '🤬'
-                },
-            ]
-        }
-        data.push(obj)
-
-    }
-
-    return data
-}

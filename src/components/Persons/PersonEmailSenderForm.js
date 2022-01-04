@@ -14,6 +14,9 @@ function PersonEmailSenderForm({ person }) {
     const { user } = useSelector(state => state.auth)
     const { messages } = useSelector(state => state.messages)
     const [isMessageSaved, setIsMessageSaved] = useState(messages.find(m => m.person_id === person._id && !m.isSent))
+    const [isSaved, setIsSaved] = useState(false)
+    const [isSent, setIsSent] = useState(false)
+    const [isSentAnima, setIsSentAnima] = useState(false)
 
     useEffect(() => {
         console.log(messages)
@@ -41,7 +44,7 @@ function PersonEmailSenderForm({ person }) {
         validationSchema: emailSchema,
         onSubmit: async (values) => {
             try {
-                values.isSent = true
+                values.is_sent = true
                 console.log(values)
                 dispatch(addMessage(values))
                 setIsSentAnima(true)
@@ -57,16 +60,14 @@ function PersonEmailSenderForm({ person }) {
 
     const { values, errors, touched, handleSubmit, isSubmitting, getFieldProps, setFieldValue } = formik;
 
-    const [isSaved, setIsSaved] = useState(false)
-    const [isSent, setIsSent] = useState(false)
-    const [isSentAnima, setIsSentAnima] = useState(false)
+    
 
     const saveMessage = e => {
         e.preventDefault()
 
         // Axios post call
 
-        values.isSent = false
+        values.is_sent = false
         dispatch(addMessage(values))
         setIsSaved(true)
         setTimeout(() => {

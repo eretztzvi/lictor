@@ -4,7 +4,9 @@ import Animate from '../../settings/Animate';
 import { centerAll } from '../../settings/Styles';
 import { useSelector, useDispatch } from 'react-redux'
 import { download, addLike } from '../../redux/slicers/likesSlicer'
-import { addLikeToPerson } from '../../redux/slicers/personsSlice'
+import { addLikeToPerson, decreaseLikeFromPerson } from '../../redux/slicers/personsSlice'
+import Axios from 'axios'
+import { Globals } from '../../Globals'
 
 function OnePerson({ fake, isHover, setIsHover, handlePersonModal }) {
 
@@ -32,8 +34,24 @@ function OnePerson({ fake, isHover, setIsHover, handlePersonModal }) {
             is_liked: likes.find(l => l.like_name === like.name && l.email === user.email && fake._id === l.person_id) ? true : false
         }
 
-        dispatch(addLike(obj))
-        dispatch(addLikeToPerson(obj))
+        // find if there is a like to decrease to the same person
+        const likeToDecrease = likes.find(l => l.person_id === obj.person_id)
+
+        Axios.post(Globals.addLike, obj)
+            .then(res => {
+                console.log(res.data)
+
+                if (likeToDecrease && likeToDecrease.like_name !== obj.like_name)
+                    dispatch(decreaseLikeFromPerson(likeToDecrease))
+
+                dispatch(addLike(obj))
+                dispatch(addLikeToPerson(obj))
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+        console.log(likes)
 
     }
 
@@ -62,7 +80,6 @@ function OnePerson({ fake, isHover, setIsHover, handlePersonModal }) {
                                     </Animate>
                                 </Button>
                                 <Typography color="white" variant='subtitle2'>{like.count}</Typography>
-                                {/* <Typography color="white" variant='subtitle2'>{like.count + likes.filter(l => l.like_name === like.name && fake._id === l.person_id).length }</Typography> */}
                             </Box>
                         )}
 
