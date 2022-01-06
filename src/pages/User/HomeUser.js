@@ -23,7 +23,7 @@ function HomeUser() {
         console.log(searchVal)
     }
 
-    const [currDisplay, setCurrDisplay] = useState(10)
+    const [currDisplay, setCurrDisplay] = useState(3)
 
     const [isHover, setIsHover] = useState('')
 
@@ -50,9 +50,9 @@ function HomeUser() {
             <Grid item sx={12} md={2} lg={2} ></Grid>
             <Grid item sx={12} md={2} lg={2} ></Grid>
             <Grid item sx={12} md={8} lg={8} >
-                <Box sx={{ width: '100%' }}>
+                <Box >
                     <Masonry columns={3} spacing={3} sx={{ m: 0 }} >
-                        {persons && persons.slice(0, currDisplay).map((fake, index) => (
+                        {persons && persons.filter(p => `${p.first_name} ${p.last_name}`.includes(searchVal)).slice(0, currDisplay).map((fake, index) => (
                             <Animate anima="fadeInUp">
                                 <OnePerson fake={fake} isHover={isHover} key={index} setIsHover={setIsHover} handlePersonModal={handlePersonModal} />
                             </Animate>
@@ -63,7 +63,7 @@ function HomeUser() {
             <Grid item sx={12} md={2} lg={2} ></Grid>
 
             <Box sx={{ m: 5, width: 1200, ...centerAll({}) }}>
-                <Button sx={{ width: 150, height: 45 }} variant='outlined' color="warning" onClick={() => setCurrDisplay(perv => perv + 10)}>הצג עוד</Button>
+                <Button sx={{ width: 150, height: 45 }} variant='outlined' color="warning" onClick={() => setCurrDisplay(perv => perv + 3)}>הצג עוד</Button>
             </Box>
 
             <PersonDialog open={openDialog} handleClose={() => setOpenDialog(false)} person={selectedPerson} />

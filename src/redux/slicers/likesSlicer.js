@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-// import { dispatch } from '../store';
+import { dispatch } from '../store';
+import Axios from 'axios'
+import { Globals } from '../../Globals'
 
 const initialState = {
     likes: []
@@ -36,3 +38,27 @@ export const { download, addLike } = likesSlice.actions;
 
 
 export default likesSlice.reducer;
+
+// ----------------------------------------------------------------------
+
+export function getUserLikes() {
+    return async () => {
+        try {
+           const userId = JSON.parse(localStorage.getItem('user'))._id
+
+            Axios.get(Globals.getAllUserLikes + userId)
+                .then(res => {
+                    dispatch(likesSlice.actions.download(res.data));
+                    console.log(res.data)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+
+        } catch (error) {
+            console.log(error)
+        }
+    };
+}
+
+// ----------------------------------------------------------------------

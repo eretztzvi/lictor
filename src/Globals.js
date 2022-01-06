@@ -9,6 +9,7 @@ export class Globals {
     static login;
     static getAllPersonsForUser;
     static addLike;
+    static getAllUserLikes;
     
     static init() {
 
@@ -22,9 +23,10 @@ export class Globals {
             Globals.login = `${Globals.mainUrl}auth/login/`;
             Globals.getAllPersonsForUser = `${Globals.mainUrl}persons/all-persons/`;
             Globals.addLike = `${Globals.mainUrl}likes/add-like/`;
+            Globals.getAllUserLikes = `${Globals.mainUrl}likes/by-user/`;
             
         } else {
-
+            
             // Globals.cloudinaryPreset = "lfbvtpzc"
             // Globals.cloudinaryCloudName = "sihinspectors"
             // Globals.cloudinaryUploadLink = `https://api.cloudinary.com/v1_1/${Globals.cloudinaryCloudName}/upload`
@@ -33,6 +35,7 @@ export class Globals {
             Globals.login = `${Globals.mainUrl}auth/login/`;
             Globals.getAllPersonsForUser = `${Globals.mainUrl}persons/all-persons/`;
             Globals.addLike = `${Globals.mainUrl}likes/add-like/`;
+            Globals.getAllUserLikes = `${Globals.mainUrl}likes/by-user/`;
         }
     }
 

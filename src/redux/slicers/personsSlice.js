@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchFakePersons } from '../../fakeData/fakePersons'
 import { dispatch } from '../store';
 import Axios from 'axios'
 import { Globals } from '../../Globals'
@@ -47,12 +46,9 @@ export default personSlice.reducer;
 export function getPersons() {
     return async () => {
         try {
-            // const data = fetchFakePersons()
-
             Axios.get(Globals.getAllPersonsForUser)
                 .then(res => {
                     dispatch(personSlice.actions.download(res.data));
-                    console.log(res.data)
                 })
                 .catch(err => {
                     console.log(err)

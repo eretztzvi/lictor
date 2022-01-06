@@ -75,7 +75,7 @@ function OnePerson({ fake, isHover, setIsHover, handlePersonModal }) {
                         {fake.likes.map((like, i) =>
                             <Box sx={{ ...centerAll({}) }} key={i}>
                                 <Button onClick={() => pressLike(like)} >
-                                    <Animate anima={isPressed === like.name && 'rubberBand'}>
+                                    <Animate anima={isPressed === like.name && 'rubberBand'} timing={1}>
                                         <Typography sx={{ fontSize: likes.find(l => l.like_name === like.name && l.email === user.email && fake._id === l.person_id) ? 50 : 30 }}>{like.icon}</Typography>
                                     </Animate>
                                 </Button>

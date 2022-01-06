@@ -9,13 +9,13 @@ Animate.propTypes = {
     anima: PropTypes.oneOf(['bounce', 'flipInX', 'rubberBand', 'swing', 'bounceInDown', 'bounceInLeft', 'bounceInRight', 'hinge', 'fadeInUp', 'fadeInRightBig', 'tada', 'shake', 'slideOutUp', 'bounceOutLeft'])
 }
 
-export default function Animate({ children, anima }) {
+export default function Animate({ children, anima, timing = 2 }) {
 
     let styles = {
         animate: {
             width: '100%',
             height: '100%',
-            animation: 'x 2s',
+            animation: `x ${timing}s`,
             // animationName: Radium.keyframes(bounce, `bounce`)
         }
     }
